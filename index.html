@@ -7,10 +7,12 @@
     <meta property="og:title" content="HexnicAI - Personalized & Inclusive Learning Platform">
     <meta property="og:description" content="AI-based smart planning and accessibility tools in one unified platform.">
     <meta property="og:image" content="https://ats-001.github.io/HexnicAI/og-image.png">
-    <meta property="og:url" content="https://ats-001.github.io/HexnicAI/"
+    <meta property="og:url" content="https://ats-001.github.io/HexnicAI/">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#2563eb">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <style>
@@ -33,9 +35,12 @@
             --hero-shadow: 0 0 20px rgba(248, 250, 252, 0.4);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Open Sans', sans-serif; }
         body { background-color: var(--bg); color: var(--text); transition: background-color var(--transition); overflow-x: hidden; width: 100%; }
         a { text-decoration: none; color: inherit; }
+
+        /* SECTION SPACING */
+        section { padding: 100px 0; }
 
         /* LOADER */
         #loader { position: fixed; inset: 0; background: var(--bg); display: flex; justify-content: center; align-items: center; z-index: 10000; transition: opacity 0.8s ease; }
@@ -46,23 +51,42 @@
         #backToTop { position: fixed; bottom: 30px; right: 30px; background: var(--primary); color: white; width: 55px; height: 55px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; opacity: 0; transition: 0.3s; z-index: 999; border: none; font-size: 28px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
         #backToTop.show { opacity: 1; }
 
-        /* NAV FIXES */
-        nav { position: fixed; width: 100%; top: 0; background: rgba(255,255,255,0.1); backdrop-filter: blur(15px); z-index: 2000; padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.05); }
+        /* NAV & DROPDOWN */
+        nav { position: fixed; width: 100%; top: 0; background: rgba(255,255,255,0.1); backdrop-filter: blur(15px); z-index: 3000; padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.05); }
         .nav-container { display: flex; justify-content: space-between; align-items: center; width: 90%; margin: auto; position: relative; }
-        .logo-box { display: flex; align-items: center; gap: 12px; cursor: pointer; z-index: 2010; }
+        .logo-box { display: flex; align-items: center; gap: 12px; cursor: pointer; z-index: 3010; }
         .nav-logo { height: 38px; width: 38px; }
-        .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 6px; z-index: 2011; padding: 10px; }
+        .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 6px; z-index: 3011; padding: 10px; }
         .hamburger span { width: 28px; height: 3px; background: var(--primary); border-radius: 2px; }
 
         .nav-links { display: flex; gap: 15px; align-items: center; }
         .nav-item { font-weight: 600; cursor: pointer; padding: 8px 12px; border-radius: 8px; }
 
-        /* HERO & TYPEWRITER */
-        .hero { text-align: center; padding: 180px 0 80px; }
-        #typewriter { font-size: 3rem; min-height: 90px; font-weight: 800; color: var(--hero-text); text-shadow: var(--hero-shadow, none); }
+        .github-dropdown { position: relative; display: inline-block; }
+        .btn-github { background: #333; color: white !important; border-radius: 50px; padding: 8px 18px !important; display: flex; align-items: center; gap: 8px; font-size: 0.9rem; transition: 0.3s; cursor: pointer; }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 100%;
+            background: var(--card);
+            min-width: 180px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.05);
+            z-index: 4000;
+        }
+        .dropdown-content a { color: var(--text); padding: 12px 16px; display: block; font-size: 0.9rem; font-weight: 600; }
+        .dropdown-content a:hover { background: var(--primary); color: white; }
+        .github-dropdown:hover .dropdown-content { display: block; }
 
-        /* SECTIONS */
-        section { padding: 80px 0; }
+        /* HERO */
+        .hero { text-align: center; padding: 200px 0 100px; }
+        #typewriter { font-size: 2.5rem; min-height: 90px; font-weight: 800; color: var(--hero-text); text-shadow: var(--hero-shadow, none); }
+
+        /* CARDS & TITLES */
         .container { width: 90%; max-width: 1200px; margin: auto; }
         .section-title { text-align: center; margin-bottom: 50px; font-size: 2.5rem; color: var(--primary); }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
@@ -70,13 +94,23 @@
         .card:hover { transform: translateY(-10px); border-color: var(--primary); }
         .btn { background: var(--gradient); color: white !important; padding: 12px 30px; border-radius: 50px; font-weight: 700; display: inline-block; margin-top: 15px; }
 
-        /* TIMELINE RESTORED */
-        .timeline { position: relative; max-width: 800px; margin: auto; }
-        .timeline::before { content: ''; position: absolute; left: 50%; width: 2px; height: 100%; background: var(--primary); transform: translateX(-50%); }
-        .timeline-item { width: 50%; padding: 20px 40px; position: relative; }
-        .timeline-item.left { text-align: right; left: 0; }
-        .timeline-item.right { text-align: left; left: 50%; }
-        .timeline-dot { position: absolute; top: 25px; width: 16px; height: 16px; background: var(--primary); border-radius: 50%; left: 50%; transform: translateX(-50%); border: 3px solid var(--bg); }
+        /* TIMELINE */
+        .timeline { position: relative; width: 100%; max-width: 1000px; margin: 0 auto; list-style: none; }
+        .timeline:before { position: absolute; left: 50%; top: 0; content: ' '; width: 2px; height: 100%; background: var(--primary); margin-left: -1px; }
+        .timeline li { padding: 2em 0; position: relative; }
+        .direction-l { width: 46%; float: left; text-align: right; }
+        .direction-r { width: 46%; float: right; text-align: left; }
+        .flag { background: var(--card); padding: 12px 20px; border-radius: 8px; font-weight: 600; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .direction-l .flag:before, .direction-r .flag:before { content: ''; position: absolute; top: 50%; width: 14px; height: 14px; background: var(--primary); border-radius: 50%; margin-top: -7px; border: 2px solid var(--bg); z-index: 10; }
+        .direction-l .flag:before { right: -10.5%; }
+        .direction-r .flag:before { left: -10.5%; }
+        .time-wrapper { color: var(--primary); font-size: 0.8rem; display: block; margin-top: 8px; font-weight: 700; }
+
+        /* TEAM & LINKEDIN */
+        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; }
+        .team-card { background: var(--card); padding: 25px; border-radius: 20px; display: flex; align-items: center; gap: 15px; border: 1px solid rgba(0,0,0,0.05); }
+        .avatar { width: 50px; height: 50px; background: var(--gradient); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; flex-shrink: 0; }
+        .member-link { color: var(--primary); font-size: 0.8rem; font-weight: 700; display: flex; align-items: center; gap: 4px; margin-top: 6px; }
 
         /* FAQ */
         .faq-item { background: var(--card); margin-bottom: 10px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.05); overflow: hidden; }
@@ -84,19 +118,34 @@
         .faq-a { max-height: 0; overflow: hidden; transition: 0.3s; padding: 0 18px; opacity: 0.8; }
         .faq-item.active .faq-a { max-height: 150px; padding-bottom: 18px; }
 
-        /* TEAM RESTORED */
-        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-        .team-card { background: var(--card); padding: 20px; border-radius: 15px; display: flex; align-items: center; gap: 15px; border: 1px solid rgba(0,0,0,0.05); }
-        .avatar { width: 50px; height: 50px; background: var(--gradient); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; flex-shrink: 0; }
-
         @media (max-width: 768px) {
             .hamburger { display: flex; }
-            .nav-links { position: fixed; top: 0; right: -100%; width: 100%; height: 100vh; background: var(--card); flex-direction: column; justify-content: center; z-index: 2005; transition: 0.4s; }
-            .nav-links.active { right: 0; }
-            .timeline::before { left: 20px; }
-            .timeline-item { width: 100%; left: 0 !important; text-align: left !important; padding-left: 50px; }
-            .timeline-dot { left: 20px; }
+            .nav-links { display: none; }
+            .timeline:before { left: 30px; }
+            .direction-l, .direction-r { width: 100%; float: none; padding-left: 60px; text-align: left; }
+            .direction-l .flag:before { left: -37px; right: auto; }
+            section { padding: 60px 0; }
         }
+        
+        /* --- Hamburger fix (added, original code untouched) --- */
+
+@media (max-width:768px){
+
+#navLinks.show{
+display:flex !important;
+flex-direction:column;
+position:absolute;
+top:70px;
+right:5%;
+background:var(--card);
+padding:15px;
+border-radius:12px;
+width:220px;
+box-shadow:0 10px 25px rgba(0,0,0,0.15);
+z-index:3500;
+}
+
+}
     </style>
 </head>
 <body>
@@ -106,7 +155,7 @@
 
 <nav>
     <div class="nav-container">
-        <div class="logo-box" onclick="window.scrollTo(0,0)">
+        <div class="logo-box" onclick="window.scrollTo({top:0, behavior:'smooth'})">
             <img src="logo.png" class="nav-logo">
             <strong style="font-size: 1.3rem; color: var(--primary);">HexnicAI</strong>
         </div>
@@ -114,9 +163,20 @@
         <div class="nav-links" id="navLinks">
             <a href="#modules" class="nav-item">Modules</a>
             <a href="#timeline" class="nav-item">Roadmap</a>
-            <a href="#faq" class="nav-item">FAQ</a>
             <a href="#team" class="nav-item">Team</a>
+            <a href="#faq" class="nav-item">FAQ</a>
             <button onclick="toggleTheme()" id="themeBtn" style="background:none; border:none; font-size:1.2rem; cursor:pointer;">🌙</button>
+            <div class="github-dropdown">
+                <div class="btn-github">
+                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.042-1.416-4.042-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    GitHub
+                </div>
+                <div class="dropdown-content">
+                    <a href="https://github.com/ATS-001/studyai-2026" target="_blank">StudyAI</a>
+                    <a href="https://github.com/abhinavnixabvv-hue/speak-easy-tools" target="_blank">Speak Easy</a>
+                    <a href="https://github.com/ATS-001/HexnicAI" target="_blank">HexnicAI Core</a>
+                </div>
+            </div>
         </div>
     </div>
 </nav>
@@ -142,21 +202,59 @@
                 <p>Assistive tools designed for inclusive learning and speech support.</p>
                 <a href="https://speak-easy-tools.vercel.app/" class="btn">Explore</a>
             </div>
-            <div class="card" data-aos="fade-up" data-aos-delay="100">
+            <div class="card" data-aos="fade-up" data-aos-delay="200">
                 <h2>Coming Soon</h2>
-                <p></p>
+                <p>We are constantly building more tools for personalized learning.</p>
             </div>
         </div>
     </div>
 </section>
 
-<section id="timeline" style="background: rgba(37,99,235,0.02);">
+<section id="timeline">
     <div class="container">
         <h2 class="section-title">Development Roadmap</h2>
-        <div class="timeline">
-            <div class="timeline-item left" data-aos="fade-right"><div class="timeline-dot"></div><h3>2023</h3><p>ATS-PDZ Foundation</p></div>
-            <div class="timeline-item right" data-aos="fade-left"><div class="timeline-dot"></div><h3>2025</h3><p>HexnicAI Conceptualized</p></div>
-            <div class="timeline-item left" data-aos="fade-right"><div class="timeline-dot"></div><h3>2026</h3><p>Full Platform Launch</p></div>
+        <ul class="timeline">
+            <li><div class="direction-r" data-aos="fade-left"><div class="flag">ATS-PDZ Formed<span class="time-wrapper">Jan 2023</span></div></div></li>
+            <li><div class="direction-l" data-aos="fade-right"><div class="flag">HexnicAI Conceptualized<span class="time-wrapper">Dec 2025</span></div></div></li>
+            <li><div class="direction-r" data-aos="fade-left"><div class="flag">Initial Tool Release<span class="time-wrapper">Jan 2026</span></div></div></li>
+            <li><div class="direction-l" data-aos="fade-right"><div class="flag">Available in HexnicAI<span class="time-wrapper">Jan 2026</span></div></div></li>
+            <li><div class="direction-r" data-aos="fade-left"><div class="flag">Initial Deployment<span class="time-wrapper">Feb 2026</span></div></div></li>
+            <li><div class="direction-l" data-aos="fade-right"><div class="flag">### Coming Soon ###<span class="time-wrapper">Mar 2026</span></div></div></li>
+        </ul>
+    </div>
+</section>
+
+<section id="team">
+    <div class="container">
+        <h2 class="section-title">The Developers</h2>
+        <div class="team-grid">
+            <div class="team-card" data-aos="zoom-in">
+                <div class="avatar">ATS</div>
+                <div>
+                    <strong>Aaron T.S.</strong><br><small>Founder & Lead</small>
+                    <a href="https://www.linkedin.com/in/aaronts127pdz/" target="_blank" class="member-link">🔗 LinkedIn</a>
+                </div>
+            </div>
+            <div class="team-card" data-aos="zoom-in" data-aos-delay="50">
+                <div class="avatar">AT</div>
+                <div><strong>Alwin Thomas V</strong><br><small>Co-Developer</small><a href="https://www.linkedin.com/in/alwin-thomas-v-033057384/" class="member-link">🔗 LinkedIn</a></div>
+            </div>
+            <div class="team-card" data-aos="zoom-in" data-aos-delay="100">
+                <div class="avatar">AN</div>
+                <div><strong>Abhinav N</strong><br><small>Co-Developer</small><a href="https://www.linkedin.com/in/abhinav-n-713a84383/" class="member-link">🔗 LinkedIn</a></div>
+            </div>
+            <div class="team-card" data-aos="zoom-in" data-aos-delay="150">
+                <div class="avatar">AB</div>
+                <div><strong>Adithya Binesh</strong><br><small>Lead (Speak Easy)</small><a href="https://www.linkedin.com/in/adithya-binesh-631270388/" class="member-link">🔗 LinkedIn</a></div>
+            </div>
+            <div class="team-card" data-aos="zoom-in" data-aos-delay="200">
+                <div class="avatar">AS</div>
+                <div><strong>Adhin Seby</strong><br><small>Co-Developer</small><a href="https://www.linkedin.com/in/adhin-seby-4b6b45384/" class="member-link">🔗 LinkedIn</a></div>
+            </div>
+            <div class="team-card" data-aos="zoom-in" data-aos-delay="250">
+                <div class="avatar">AK</div>
+                <div><strong>Akshay T S</strong><br><small>Co-Developer</small><a href="https://www.linkedin.com/in/akshay-t-s-487b90382/" class="member-link">🔗 LinkedIn</a></div>
+            </div>
         </div>
     </div>
 </section>
@@ -175,55 +273,22 @@
     <div class="container">
         <h2 style="margin-bottom:20px;">Help Us Improve</h2>
         <p style="margin-bottom:30px;">Your suggestions help make HexnicAI more inclusive for everyone.</p>
-        <a href="https://forms.gle/6EHxeqddKF2eyuMG6" target="_blank" class="btn" style="background:white; color:var(--primary)!important;">Send Feedback</a>
-    </div>
-</section>
-
-<section id="team">
-    <div class="container">
-        <h2 class="section-title">The Developers</h2>
-        <div class="team-grid">
-            <div class="team-card">
-                <div class="avatar">ATS</div>
-                <div><strong>Aaron T.S.</strong><br><small>Founder & Lead</small></div>
-            </div>
-            <div class="team-card">
-                <div class="avatar">AT</div>
-                <div><strong>Alwin Thomas V</strong><br><small>Co-Developer (Study AI)</small></div>
-            </div>
-            <div class="team-card">
-                <div class="avatar">AN</div>
-                <div><strong>Abhinav N</strong><br><small>Co-Developer (Speak Easy)</small></div>
-            </div>
-            <div class="team-card">
-                <div class="avatar">AB</div>
-                <div><strong>Adithya Binesh</strong><br><small>Lead (Speak Easy)</small></div>
-            </div>
-            <div class="team-card">
-                <div class="avatar">AS</div>
-                <div><strong>Adhin Seby</strong><br><small>Co-Developer</small></div>
-            </div>
-            <div class="team-card">
-                <div class="avatar">AK</div>
-                <div><strong>Akshay T S</strong><br><small>Co-Developer</small></div>
-            </div>
-        </div>
+        <a href="https://forms.gle/JScLaZhBx8YLofV9A" target="_blank" class="btn" style="background:white; color:var(--primary)!important;">Send Feedback</a>
     </div>
 </section>
 
 <footer style="background:#0f172a; color:white; padding:40px 0; text-align:center;">
     <p>Developed by Students of Vidya Academy of Science and Technology</p>
     <p>© 2026 HexnicAI | Part of ATS_PDZ</p>
+    <a href="mailto:aaronsooraj001@gmail.com" 
+   style="display:inline-block;margin-top:15px;background:#2563eb;color:white;padding:10px 22px;border-radius:30px;font-weight:600;">
+Contact Us
+</a>
 </footer>
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
     AOS.init({ duration: 800, once: true });
-
-    // Menu Logic
-    const h = document.getElementById('hamburgerBtn'), n = document.getElementById('navLinks');
-    h.onclick = (e) => { e.stopPropagation(); n.classList.toggle('active'); };
-    window.onclick = () => n.classList.remove('active');
 
     // Typewriter
     const txt = "AI-Based Personalized and Inclusive Learning Platform";
@@ -233,19 +298,40 @@
     // FAQ
     document.querySelectorAll('.faq-q').forEach(q => q.onclick = () => q.parentElement.classList.toggle('active'));
 
-    // Theme
+    // Theme Toggle
     function toggleTheme() {
         document.body.classList.toggle('dark');
         document.getElementById('themeBtn').innerText = document.body.classList.contains('dark') ? '☀️' : '🌙';
     }
 
     window.onload = () => {
-        setTimeout(() => { document.getElementById('loader').style.display='none'; type(); }, 1000);
+        setTimeout(() => { 
+            document.getElementById('loader').style.display='none'; 
+            type(); 
+        }, 1000);
     };
 
+    const btt = document.getElementById('backToTop');
     window.onscroll = () => {
-        document.getElementById('backToTop').classList.toggle('show', window.scrollY > 400);
+        btt.classList.toggle('show', window.scrollY > 400);
     };
+    btt.onclick = () => window.scrollTo({top:0, behavior:'smooth'});
+
+/* --- Hamburger fix (added, original code untouched) --- */
+
+const hamburgerBtn = document.getElementById("hamburgerBtn");
+const navLinksMenu = document.getElementById("navLinks");
+
+hamburgerBtn.addEventListener("click", function(){
+navLinksMenu.classList.toggle("show");
+});
+
+/* close menu when clicking links */
+document.querySelectorAll("#navLinks a").forEach(link=>{
+link.addEventListener("click",()=>{
+navLinksMenu.classList.remove("show");
+});
+});
 </script>
 </body>
 </html>
